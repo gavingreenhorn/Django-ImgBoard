@@ -1,0 +1,93 @@
+{% load static %}
+<nav class="navbar navbar-dark" style="background-color: #323232">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'posts:index' %}">
+        <svg width="40" height="40" viewBox="0 0 560 530">
+          <path fill="white" d="M421.58,285H545.12V275H422.24L390,211.21l-24.23-69.84L416.89,52.9l-8.66-5-50.67,87.77-83.12-5.07L189.93,114,151.77,47.9l-8.66,5,37.82,65.5c-7.31,12.09-39,64.22-51.3,81.06-12.54,17.15-54.82,65.8-63.31,75.54H14.88v10h50.8l52.79,93.25L159,479.64,143.11,507.1l8.66,5,15.73-27.25L280,477.17l112.49,7.67,15.73,27.25,8.66-5-67.57-117,32.17-54.38ZM380.7,214.8l.11.32L411,275H352l-14.61-30.93-11-34.46,32.79-56.79ZM300.37,264.4l4.33,10.6h-16l9.94-17.22Zm-42.06,27.75L253.07,285h18.27l-8.7,15.07ZM280,290l7,12.11-8.15.31-6.67,1.14Zm-8.66-15H228.09c4.67-5.11,10.14-11.21,12.53-14.26,2.76-3.52,8.3-11.76,12.25-17.73Zm-7.51-33,11.56,3.55,17,3L280,270Zm-23.15,43,9,12.24,7.08,13L248,325.46l-9.62-20.82L225.81,285Zm25,29.81,13.88-2.41,13.09-.5,10.42,18-23.37-1.28-23.1,1.89ZM295.3,296.5,288.66,285h13.73l-3.57,4.94Zm2.42-57.2L278,235.89l-21.53-6.61-16.06-27.82,34.26,8,.32.07,37.76,3.71Zm-50.45-6c-3.45,5.26-11.28,17.12-14.53,21.25-3.42,4.37-14.28,16.14-18.25,20.43H177c8.82-10,23-26.23,28.32-33.33,5.67-7.57,18.15-27.3,24.83-38ZM213.94,285l15.64,24.45,12.29,26.6L219.7,374.44,200.37,328.5,174.65,285Zm36.57,56.08,29.32-2.39,29.21,1.6,25.27,43.77-52.92-5.47-53.56,1.77Zm50.68-34.39,5.95-11.17L314.72,285h24l-14.46,18.86L312,325.4ZM315.51,275l-5.56-13.5-4.27-16,14-24.21,8.44,26.43L341,275ZM273.16,140.55l78.81,4.8-33.71,58.38-41.62-4.09-43.07-10.06-37-64.09ZM137.7,205.36c11.47-15.69,38.32-59.59,48.94-77.07l37.86,65.58c-5,8.11-20.86,33.38-27.17,41.81-6.51,8.69-27.86,32.78-33.68,39.32H79.58C94.19,258.16,126.63,220.5,137.7,205.36ZM127.63,374.23l-.13-.31L77.17,285H163l28.38,48,22,52.31-48.1,83.31Zm152.71,92.95-.34,0-106.47,7.26,48.41-83.85,59.1-2,59.44,6.14,46,79.66ZM373.22,330l-29.64,50.11-25.81-44.7,14.85-26L351.33,285h57.5l-35.4,44.75Z"/>
+        </svg>
+        <!-- <img src="{% static 'img/logo.jpg' %}" width="30" height="30" class="d-inline-block align-top"> -->
+      </a>
+      {% with request.resolver_match.view_name as view_name %} 
+      <ul class="nav nav-pills">
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+            {% if view_name  == 'about:author' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'about:author' %}">
+            About the author
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  link-light
+            {% if view_name  == 'about:tech' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'about:tech' %}">
+            Tech
+          </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+            {% if view_name  == 'posts:post_create' %} active 
+            {% else %} underline
+            {% endif %}" href="{% url 'posts:post_create' %}">
+            New post
+          </a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link
+            {% if view_name  == 'users:password_change' %} active
+            {% else %} underline
+            {% endif %} link-light" href="{% url 'users:password_change' %}">
+            Change password
+          </a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+          {% if view_name  == 'users:logout' %} active
+          {% else %} underline
+          {% endif %}" href="{% url 'users:logout' %}">
+            Sign out
+          </a>
+        </li>
+        <li class="navbar-text link-light" style="font-weight: 500">
+          User: {{ user.username }}
+        </li>
+        {% else %}
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+            {% if view_name  == 'users:login' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'users:login' %}">
+            Sign in
+          </a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link link-light
+            {% if view_name  == 'users:signup' %} active
+            {% else %} underline
+            {% endif %}" href="{% url 'users:signup' %}">
+            Sign up
+          </a>
+        </li>
+        {% endif %}
+        {% endwith %}
+      </ul>
+    </div>
+  </nav>
+  <style>
+    .nav-pills .underline {
+      text-underline-offset: 0.1em;
+      text-decoration-color: #323232;
+      transition: text-decoration-color 250ms;
+    }
+
+    .nav-pills .underline:hover {
+      text-decoration: underline 2px;
+      text-decoration-color: red;
+    }
+
+    .nav > .nav-item > .active {
+      background-color: #626262
+    }
+  </style>

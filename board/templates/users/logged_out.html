@@ -1,0 +1,13 @@
+{% extends "users/base_form.html" %}
+{% block title %}You signed out{% endblock %}
+{% block header %}
+  Sign out
+{% endblock %}
+{% block body %}
+  <p>
+    You signed out of your account
+  </p>
+  <a class="btn btn-primary" href="{% url 'posts:index' %}">
+    To main page
+  </a>
+{% endblock %}
